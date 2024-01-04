@@ -45,6 +45,7 @@
     "@rollup/plugin-typescript": "^8.5.0",
     "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/github": "github:semantic-release/github",
+    "@semantic-release/npm": "github:semantic-release/npm",
     "@storybook/addon-a11y": "^7.6.3",
     "@storybook/addon-actions": "^7.6.3",
     "@storybook/addon-essentials": "^7.6.3",
@@ -118,19 +119,15 @@
     "branches": [
       "master"
     ],
-    "plugins": [
-      [
-        "@semantic-release/commit-analyzer",
-        {
-          "preset": "conventionalcommits",
-          "releaseRules": [
-            {
-              "type": "build",
-              "release": "minor"
-            }
-          ]
-        }
-      ],
+    "plugins": [[
+      "@semantic-release/commit-analyzer", {
+        "preset": "conventionalcommits",
+        "releaseRules": [{
+          "type": "build",
+          "release": "minor"
+        }]
+      }],
+      ["@semantic-release/npm", { "npmPublish": false, "tarballDir": "dist" }],
       "@semantic-release/github"
     ]
   }
