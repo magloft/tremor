@@ -174,6 +174,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
               needMargin={needIconMargin}
             />
           ) : null}
+          <pre>AWESOME</pre>
         </button>
       )}
     </Transition>
