@@ -8,7 +8,11 @@ on:
       - synchronize
   push:
     branches:
-      - 'master'
+      - '**'
+      - '!master'
+      - '!main'
+      - '!beta'
+      - '!beta-**'
 
 jobs:
   build:
