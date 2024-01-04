@@ -45,7 +45,6 @@
     "@rollup/plugin-typescript": "^8.5.0",
     "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/github": "github:semantic-release/github",
-    "@semantic-release/npm": "github:semantic-release/npm",
     "@storybook/addon-a11y": "^7.6.3",
     "@storybook/addon-actions": "^7.6.3",
     "@storybook/addon-essentials": "^7.6.3",
@@ -132,7 +131,6 @@
           ]
         }
       ],
-      "@semantic-release/npm",
       "@semantic-release/github"
     ]
   }
