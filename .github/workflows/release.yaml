@@ -16,7 +16,8 @@ jobs:
         uses: actions/setup-node@v3.4.1
         with:
           node-version: 18
-          registry-url: https://registry.npmjs.org
+          registry-url: https://npm.pkg.github.com/
+          scope: "@magloft"
       - name: install react
         run: npm i react
       - name: install dependencies
@@ -25,6 +26,7 @@ jobs:
         run: npm run build
       - name: release
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release

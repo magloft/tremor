@@ -113,7 +113,8 @@
   ],
   "types": "dist/index.d.ts",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   },
   "release": {
     "branches": [
@@ -127,7 +128,7 @@
           "release": "minor"
         }]
       }],
-      ["@semantic-release/npm", { "npmPublish": false, "tarballDir": "dist" }],
+      "@semantic-release/npm",
       "@semantic-release/github"
     ]
   }
