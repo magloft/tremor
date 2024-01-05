@@ -48,6 +48,31 @@ export const Default: Story = {
   },
 };
 
+export const Divide: Story = {
+  args: {
+    data: getData(),
+    valueFormatter: (value) => `${value} USD`,
+    showDivide: true,
+  },
+};
+
+export const NotSeparateValue: Story = {
+  args: {
+    data: getData(),
+    valueFormatter: (value) => `${value} USD`,
+    separateValue: false,
+  },
+};
+
+export const DivideAndNotSeparateValue: Story = {
+  args: {
+    data: getData(),
+    valueFormatter: (value) => `${value} USD`,
+    showDivide: true,
+    separateValue: false,
+  },
+};
+
 export const Icon: Story = {
   args: {
     data: getData(Array(5).fill({ icon: CalendarIcon })),
