@@ -5,6 +5,7 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "rollup -c",
+    "watch": "rollup -c --watch",
     "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
     "prettier": "prettier --write \"{src,types,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
     "tests": "jest",
