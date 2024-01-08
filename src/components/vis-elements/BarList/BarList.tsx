@@ -98,7 +98,7 @@ const BarList = React.forwardRef<HTMLDivElement, BarListProps>((props, ref) => {
                   className={tremorTwMerge(
                     "absolute max-w-full flex",
                     // spacing separate/not separate value
-                    separateValue ? spacing.sm.left : spacing.lg.left,
+                    separateValue ? spacing.sm.left : `${spacing.lg.left} w-full`,
                   )}
                 >
                   {Icon ? (
