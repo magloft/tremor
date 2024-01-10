@@ -9,3 +9,4 @@ export * from "./Switch";
 export * from "./Tabs";
 export * from "./Textarea";
 export * from "./TextInput";
+export * from "./DateMonthPicker";

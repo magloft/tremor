@@ -2,4 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+.react-datepicker-wrapper {
+    width: 100%;
+    background-color: white !important;
+}
+
+.react-datepicker__header.react-datepicker__header--custom {
+    background-color: white !important;
+    border-bottom: 1px solid #D0D4DA !important;
+}
+
+.react-datepicker__triangle {
+    margin-top: 0 !important;
+}
+
+.react-datepicker {
+    border: 1px solid #D0D4DA !important;
+}
+
 /* Do not any styles here. Use Tailwnd arbitrary properties */
