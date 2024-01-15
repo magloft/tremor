@@ -1,6 +1,7 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Select } from "components";
+import { Select, Text } from "components";
 import {
   SimpleSelect,
   SimpleSelectControlled,
@@ -66,4 +67,23 @@ export const UncontrolledDisabled: Story = {
 
 export const Controlled: Story = {
   render: SimpleSelectControlled,
+};
+
+export const TextStyle: Story = {
+  render: (args) => (
+    <div className="w-full gap-2 flex flex-row items-center">
+      <div className="w-1/6">
+        <SimpleSelect {...args} />
+      </div>
+      <div className="flex-1">
+        <Text>by Country</Text>
+      </div>
+    </div>
+  ),
+  args: {
+    type: "text",
+    placeholder: "Users",
+    className: "bg-transparent",
+    enableClear: false,
+  },
 };
