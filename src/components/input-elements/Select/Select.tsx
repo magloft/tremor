@@ -20,6 +20,11 @@ export interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
   icon?: React.JSXElementConstructor<any>;
   enableClear?: boolean;
   children: React.ReactNode;
+  customIcon?: {
+    open: React.ElementType;
+    close: React.ElementType;
+  };
+  type?: "text" | "default";
 }
 
 const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
@@ -33,6 +38,8 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     enableClear = true,
     children,
     className,
+    customIcon,
+    type = "default",
     ...other
   } = props;
 
@@ -64,26 +71,31 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       disabled={disabled}
       className={tremorTwMerge(
         // common
-        "w-full min-w-[10rem] relative text-tremor-default",
+        "relative text-tremor-default",
+        type === "default" && "w-full min-w-[10rem]",
         className,
       )}
       {...other}
     >
-      {({ value }) => (
+      {({ value, open }) => (
         <>
           <Listbox.Button
             className={tremorTwMerge(
               // common
-              "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default focus:ring-2 transition duration-100",
+              "w-full outline-none text-left whitespace-nowrap truncate rounded-tremor-default transition duration-100",
+              type === "default" && "focus:ring-2",
               // light
-              "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
+              type === "default" &&
+                "border-tremor-border shadow-tremor-input focus:border-tremor-brand-subtle focus:ring-tremor-brand-muted",
               // dark
-              "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
+              type === "default" &&
+                "dark:border-dark-tremor-border dark:shadow-dark-tremor-input dark:focus:border-dark-tremor-brand-subtle dark:focus:ring-dark-tremor-brand-muted",
               Icon ? "p-10 -ml-0.5" : spacing.lg.paddingLeft,
               spacing.fourXl.paddingRight,
               spacing.sm.paddingY,
-              border.sm.all,
+              type === "default" && border.sm.all,
               getSelectButtonColors(hasValue(value), disabled),
+              type === "text" && "hover:!bg-transparent bg-transparent",
             )}
           >
             {Icon && (
@@ -117,19 +129,51 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                 spacing.lg.marginRight,
               )}
             >
-              <ArrowDownHeadIcon
-                className={tremorTwMerge(
-                  makeSelectClassName("arrowDownIcon"),
-                  // common
-                  "flex-none",
-                  // light
-                  "text-tremor-content-subtle",
-                  // dark
-                  "dark:text-dark-tremor-content-subtle",
-                  sizing.md.height,
-                  sizing.md.width,
-                )}
-              />
+              {customIcon ? (
+                open ? (
+                  <customIcon.open
+                    className={tremorTwMerge(
+                      makeSelectClassName("arrowDownIcon"),
+                      // common
+                      "flex-none",
+                      // light
+                      "text-tremor-content-subtle",
+                      // dark
+                      "dark:text-dark-tremor-content-subtle",
+                      sizing.md.height,
+                      sizing.md.width,
+                    )}
+                  />
+                ) : (
+                  <customIcon.close
+                    className={tremorTwMerge(
+                      makeSelectClassName("arrowDownIcon"),
+                      // common
+                      "flex-none",
+                      // light
+                      "text-tremor-content-subtle",
+                      // dark
+                      "dark:text-dark-tremor-content-subtle",
+                      sizing.md.height,
+                      sizing.md.width,
+                    )}
+                  />
+                )
+              ) : (
+                <ArrowDownHeadIcon
+                  className={tremorTwMerge(
+                    makeSelectClassName("arrowDownIcon"),
+                    // common
+                    "flex-none",
+                    // light
+                    "text-tremor-content-subtle",
+                    // dark
+                    "dark:text-dark-tremor-content-subtle",
+                    sizing.md.height,
+                    sizing.md.width,
+                  )}
+                />
+              )}
             </span>
           </Listbox.Button>
           {enableClear && selectedValue ? (
@@ -171,7 +215,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
             <Listbox.Options
               className={tremorTwMerge(
                 // common
-                "divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0",
+                "min-w-[10rem] divide-y overflow-y-auto outline-none rounded-tremor-default max-h-[228px] left-0",
                 // light
                 "bg-tremor-background border-tremor-border divide-tremor-border shadow-tremor-dropdown",
                 // dark
