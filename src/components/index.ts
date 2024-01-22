@@ -5,4 +5,5 @@ export * from "./layout-elements";
 export * from "./list-elements";
 export * from "./spark-elements";
 export * from "./text-elements";
+export * from "./util-elements";
 export * from "./vis-elements";
