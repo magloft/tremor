@@ -25,6 +25,7 @@ export interface SelectProps extends React.HTMLAttributes<HTMLDivElement> {
     close: React.ElementType;
   };
   type?: "text" | "default";
+  customFontInput?: string;
 }
 
 const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
@@ -40,6 +41,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     className,
     customIcon,
     type = "default",
+    customFontInput,
     ...other
   } = props;
 
@@ -96,6 +98,7 @@ const Select = React.forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               type === "default" && border.sm.all,
               getSelectButtonColors(hasValue(value), disabled),
               type === "text" && "hover:!bg-transparent bg-transparent",
+              customFontInput ? customFontInput : "",
             )}
           >
             {Icon && (

@@ -87,3 +87,10 @@ export const TextStyle: Story = {
     enableClear: false,
   },
 };
+
+export const CustomFont: Story = {
+  render: SimpleSelect,
+  args: {
+    customFontInput: "text-gray-700 text-lg font-medium",
+  },
+};
