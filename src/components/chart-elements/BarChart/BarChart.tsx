@@ -50,7 +50,7 @@ const renderShape = (
           ? deepEqual(activeBar, { ...payload, value })
             ? fillOpacity
             : 0.3
-          : fillOpacity
+          : payload.opacity ?? fillOpacity
       }
     />
   );
@@ -60,6 +60,7 @@ export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
   stack?: boolean;
   relative?: boolean;
+  currentMonth?: string;
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) => {
@@ -92,8 +93,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     rotateLabelX,
     className,
     enableLegendSlider = false,
+    currentMonth,
     ...other
   } = props;
+
   const CustomTooltip = customTooltip;
   const paddingValue = !showXAxis && !showYAxis ? 0 : 20;
   const [legendHeight, setLegendHeight] = useState(60);
@@ -139,9 +142,33 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
   }
   const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
 
+  const renderCustomAxisTick = ({
+    x,
+    y,
+    payload,
+  }: {
+    x: number;
+    y: number;
+    payload: { value: string };
+  }) => {
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text
+          x={0}
+          y={0}
+          dy={16}
+          textAnchor="end"
+          className={payload.value === currentMonth ? "font-bold" : ""}
+          transform="translate(0, 6)"
+        >
+          {payload.value}
+        </text>
+      </g>
+    );
+  };
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer className="h-full w-full">
+      <ResponsiveContainer className="w-full h-full">
         {data?.length ? (
           <ReChartsBarChart
             data={data}
@@ -178,7 +205,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 hide={!showXAxis}
                 dataKey={index}
                 interval={startEndOnly ? "preserveStartEnd" : intervalType}
-                tick={{ transform: "translate(0, 6)" }}
+                tick={renderCustomAxisTick}
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 fill=""
                 stroke=""

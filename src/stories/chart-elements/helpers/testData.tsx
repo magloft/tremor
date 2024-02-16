@@ -1520,6 +1520,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 3000,
     "This is an edge case": 100000000,
     Test: 5000,
+    opacity: 1,
   },
   {
     month: "Feb 21",
@@ -1527,6 +1528,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 2000,
     "This is an edge case": 100000000,
     Test: 5000,
+    opacity: 1,
   },
   {
     month: "Mar 21",
@@ -1534,6 +1536,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 1700,
     "This is an edge case": 100000000,
     Test: 5000,
+    opacity: 1,
   },
   {
     month: "Apr 21",
@@ -1541,6 +1544,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 2500,
     "This is an edge case": 100000000,
     Test: 5000,
+    opacity: 1,
   },
   {
     month: "May 21",
@@ -1548,6 +1552,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 1890,
     "This is an edge case": 100000000,
     Test: 5000,
+    opacity: 0.5,
   },
   {
     month: "Jun 21",
@@ -1555,6 +1560,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 2000,
     "This is an edge case": 100000000,
     Test: 5000,
+    opacity: 0.5,
   },
   {
     month: "Jul 21",
@@ -1562,6 +1568,7 @@ export const simpleBaseChartData = [
     "Successful Payments": 3000,
     "This is an edge case": 100000000,
     Test: 5000,
+    opacity: 0.5,
   },
 ];
 
