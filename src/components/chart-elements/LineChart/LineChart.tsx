@@ -36,6 +36,8 @@ import { CurveType } from "../../../lib/inputTypes";
 export interface LineChartProps extends BaseChartProps {
   curveType?: CurveType;
   connectNulls?: boolean;
+  doubleYAxis?: boolean;
+  customYAxisColor?: boolean;
 }
 
 interface ActiveDot {
@@ -72,6 +74,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
     enableLegendSlider = false,
     customTooltip,
     rotateLabelX,
+    doubleYAxis = false,
+    customYAxisColor = false,
     ...other
   } = props;
   const CustomTooltip = customTooltip;
@@ -131,7 +135,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
 
   return (
     <div ref={ref} className={tremorTwMerge("w-full h-80", className)} {...other}>
-      <ResponsiveContainer className="h-full w-full">
+      <ResponsiveContainer className="w-full h-full">
         {data?.length ? (
           <ReChartsLineChart
             data={data}
@@ -190,20 +194,44 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               tickLine={false}
               type="number"
               domain={yAxisDomain as AxisDomain}
+              yAxisId="0"
               tick={{ transform: "translate(-3, 0)" }}
-              fill=""
               stroke=""
               className={tremorTwMerge(
                 // common
                 "text-tremor-label",
                 // light
-                "fill-tremor-content",
-                // dark
+                customYAxisColor ? `fill-${colors[0]}-500` : "fill-tremor-content",
+                // // dark
                 "dark:fill-dark-tremor-content",
               )}
               tickFormatter={valueFormatter}
               allowDecimals={allowDecimals}
             />
+            {doubleYAxis ? (
+              <YAxis
+                orientation="right"
+                width={yAxisWidth}
+                hide={!showYAxis}
+                axisLine={false}
+                tickLine={false}
+                type="number"
+                domain={yAxisDomain as AxisDomain}
+                yAxisId="1"
+                tick={{ transform: "translate(-3, 0)" }}
+                stroke=""
+                className={tremorTwMerge(
+                  // common
+                  "text-tremor-label",
+                  // light
+                  customYAxisColor ? `fill-${colors[1]}-500` : "fill-tremor-content",
+                  // // dark
+                  "dark:fill-dark-tremor-content",
+                )}
+                tickFormatter={valueFormatter}
+                allowDecimals={allowDecimals}
+              />
+            ) : null}
             <Tooltip
               wrapperStyle={{ outline: "none" }}
               isAnimationActive={false}
@@ -254,8 +282,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                 }
               />
             ) : null}
-            {categories.map((category) => (
+            {categories.map((category, key) => (
               <Line
+                yAxisId={doubleYAxis ? key.toString() : "0"}
                 className={tremorTwMerge(
                   getColorClassNames(
                     categoryColors.get(category) ?? BaseColors.Gray,
@@ -343,8 +372,9 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               />
             ))}
             {onValueChange
-              ? categories.map((category) => (
+              ? categories.map((category, key) => (
                   <Line
+                    yAxisId={doubleYAxis ? key.toString() : "0"}
                     className={tremorTwMerge("cursor-pointer")}
                     strokeOpacity={0}
                     key={category}

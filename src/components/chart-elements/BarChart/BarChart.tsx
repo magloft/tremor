@@ -50,7 +50,7 @@ const renderShape = (
           ? deepEqual(activeBar, { ...payload, value })
             ? fillOpacity
             : 0.3
-          : payload.opacity ?? fillOpacity
+          : fillOpacity
       }
     />
   );
@@ -60,7 +60,7 @@ export interface BarChartProps extends BaseChartProps {
   layout?: "vertical" | "horizontal";
   stack?: boolean;
   relative?: boolean;
-  currentMonth?: string;
+  currentVlue?: string;
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) => {
@@ -93,7 +93,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     rotateLabelX,
     className,
     enableLegendSlider = false,
-    currentMonth,
+    currentVlue,
     ...other
   } = props;
 
@@ -152,14 +152,14 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
     payload: { value: string };
   }) => {
     return (
-      <g transform={`translate(${x},${y})`}>
+      <g transform={`translate(${x + 18},${y})`}>
         <text
           x={0}
           y={0}
           dy={16}
           textAnchor="end"
-          className={payload.value === currentMonth ? "font-bold" : ""}
-          transform="translate(0, 6)"
+          className={payload.value === currentVlue ? "font-bold" : ""}
+          style={{ transform: "translate(0, 6)" }}
         >
           {payload.value}
         </text>
@@ -205,7 +205,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, ref) =>
                 hide={!showXAxis}
                 dataKey={index}
                 interval={startEndOnly ? "preserveStartEnd" : intervalType}
-                tick={renderCustomAxisTick}
+                tick={currentVlue ? renderCustomAxisTick : { transform: "translate(0,6)" }}
                 ticks={startEndOnly ? [data[0][index], data[data.length - 1][index]] : undefined}
                 fill=""
                 stroke=""
